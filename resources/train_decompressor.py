@@ -2,9 +2,8 @@ import sys
 import struct
 
 import numpy as np
-import tquat
+import tquat as quat
 import txform
-import quat
 import bvh
 
 import matplotlib.pyplot as plt

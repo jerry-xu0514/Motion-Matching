@@ -200,3 +200,27 @@ def fk_vel(lrot, lpos, lvel, lang, parents):
         torch.cat(gp, dim=-2),
         torch.cat(gv, dim=-2),
         torch.cat(ga, dim=-2))
+
+def to_euler(x, order='xyz'):
+    
+    q0 = x[...,0:1]
+    q1 = x[...,1:2]
+    q2 = x[...,2:3]
+    q3 = x[...,3:4]
+    
+    if order == 'xyz':
+    
+        return torch.cat([
+            torch.atan2(2 * (q0 * q1 + q2 * q3), 1 - 2 * (q1 * q1 + q2 * q2)),
+            torch.asin((2 * (q0 * q2 - q3 * q1)).clamp(-1,1)),
+            torch.atan2(2 * (q0 * q3 + q1 * q2), 1 - 2 * (q2 * q2 + q3 * q3))], dim=-1)
+            
+    elif order == 'yzx':
+    
+        return torch.cat([
+            torch.atan2(2 * (q1 * q0 - q2 * q3), -q1 * q1 + q2 * q2 - q3 * q3 + q0 * q0),
+            torch.atan2(2 * (q2 * q0 - q1 * q3),  q1 * q1 - q2 * q2 - q3 * q3 + q0 * q0),
+            torch.asin((2 * (q1 * q2 + q3 * q0)).clamp(-1,1))], dim=-1)
+            
+    else:
+        raise NotImplementedError('Cannot convert from ordering %s' % order)
