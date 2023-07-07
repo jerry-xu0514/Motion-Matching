@@ -56,16 +56,23 @@ void character_load(character& c, const char* filename)
 {
     FILE* f = fopen(filename, "rb");
     assert(f != NULL);
-    
-    array1d_read(c.positions, f);
+    std::cout << "positions:\n";
+    array1d_read(c.positions, f);  
+    std::cout << "normals:\n";
     array1d_read(c.normals, f);
+    std::cout << "texcoords:\n";
     array1d_read(c.texcoords, f);
+    std::cout << "traingles:\n";
     array1d_read(c.triangles, f);
     
+    std::cout << "bone_weights:\n";
     array2d_read(c.bone_weights, f);
+    std::cout << "bone_indicies:\n";
     array2d_read(c.bone_indices, f);
     
+    std::cout << "bone_rest_positions:\n";
     array1d_read(c.bone_rest_positions, f);
+    std::cout << "bone_rest_rotations:\n";
     array1d_read(c.bone_rest_rotations, f);
     
     fclose(f);

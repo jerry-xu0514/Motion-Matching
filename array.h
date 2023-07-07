@@ -105,7 +105,7 @@ void array1d_read(array1d<T>& arr, FILE* f)
 {
     int size;
     fread(&size, sizeof(int), 1, f);
-    std::cout << "size: " << size << std::endl;
+    std::cout << "\tsize: " << size << std::endl;
     arr.resize(size);
     size_t num = fread(arr.data, sizeof(T), size, f);
     assert((int)num == size);
@@ -177,6 +177,7 @@ void array2d_read(array2d<T>& arr, FILE* f)
     fread(&rows, sizeof(int), 1, f);
     fread(&cols, sizeof(int), 1, f);
     arr.resize(rows, cols);
+    std::cout << "\trows: " << rows << "\tcols: " << cols << std::endl;
     size_t num = fread(arr.data, sizeof(T), rows * cols, f);
     assert((int)num == rows * cols);
 }
