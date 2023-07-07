@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
+#include <iostream>
 
 //--------------------------------------
 
@@ -104,6 +105,7 @@ void array1d_read(array1d<T>& arr, FILE* f)
 {
     int size;
     fread(&size, sizeof(int), 1, f);
+    std::cout << "size: " << size << std::endl;
     arr.resize(size);
     size_t num = fread(arr.data, sizeof(T), size, f);
     assert((int)num == size);
