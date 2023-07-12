@@ -548,11 +548,11 @@ void database_build_matching_features(
     db.features_scale.resize(nfeatures);
     
     int offset = 0;
-    compute_bone_position_feature(db, offset, Bone_LeftFoot, feature_weight_foot_position);
-    compute_bone_position_feature(db, offset, Bone_RightFoot, feature_weight_foot_position);
-    compute_bone_velocity_feature(db, offset, Bone_LeftFoot, feature_weight_foot_velocity);
-    compute_bone_velocity_feature(db, offset, Bone_RightFoot, feature_weight_foot_velocity);
-    compute_bone_velocity_feature(db, offset, Bone_Hips, feature_weight_hip_velocity);
+    compute_bone_position_feature(db, offset, Bone_Bip002_L_Foot, feature_weight_foot_position);
+    compute_bone_position_feature(db, offset, Bone_Bip002_R_Foot, feature_weight_foot_position);
+    compute_bone_velocity_feature(db, offset, Bone_Bip002_L_Foot, feature_weight_foot_velocity);
+    compute_bone_velocity_feature(db, offset, Bone_Bip002_R_Foot, feature_weight_foot_velocity);
+    compute_bone_velocity_feature(db, offset, Bone_Root, feature_weight_hip_velocity);
     compute_trajectory_position_feature(db, offset, feature_weight_trajectory_positions);
     compute_trajectory_direction_feature(db, offset, feature_weight_trajectory_directions);
     

@@ -1424,8 +1424,8 @@ int main(void)
     // Contact and Foot Locking data
     
     array1d<int> contact_bones(2);
-    contact_bones(0) = Bone_LeftToe;
-    contact_bones(1) = Bone_RightToe;
+    contact_bones(0) = Bone_Bip002_L_Foot;
+    contact_bones(1) = Bone_Bip002_R_Foot;
     
     array1d<bool> contact_states(contact_bones.size);
     array1d<bool> contact_locks(contact_bones.size);

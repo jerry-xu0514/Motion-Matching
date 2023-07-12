@@ -14,10 +14,20 @@ plt.style.use('ggplot')
 
 def animation_mirror(lrot, lpos, names, parents):
 
+    # Orange Duck Implementation
+    # joints_mirror = np.array([(
+    #     names.index('Left'+n[5:]) if n.startswith('Right') else (
+    #     names.index('Right'+n[4:]) if n.startswith('Left') else 
+    #     names.index(n))) for n in names])
+
+    # Our Implementation
     joints_mirror = np.array([(
-        names.index('Left'+n[5:]) if n.startswith('Right') else (
-        names.index('Right'+n[4:]) if n.startswith('Left') else 
-        names.index(n))) for n in names])
+        names.index('Bone_L_'+ n[7:]) if '_R_' in n and 'Twist' in n else (
+        names.index('Bone_R_'+ n[7:]) if '_L_' in n and 'Twist' in n else (
+        names.index('Bip002_L_'+ n[9:]) if '_R_' in n else (
+        names.index('Bip002_R_'+ n[9:]) if '_L_' in n else 
+        names.index(n))))) for n in names])
+
 
     mirror_pos = np.array([-1, 1, 1])
     mirror_rot = np.array([[-1, -1, 1], [1, 1, -1], [1, 1, -1]])
@@ -32,12 +42,18 @@ def animation_mirror(lrot, lpos, names, parents):
 """ Files to Process """
 
 files = [
-    # We just use a small section of this clip for the standing idle
-    ('pushAndStumble1_subject5.bvh', 194,  351), 
-    # Running
-    ('run1_subject5.bvh',             90, 7086),
-    # Walking
-    ('walk1_subject5.bvh',            80, 7791),
+    ('run_RH_03.bvh',           37,   909),
+    ('run45_RH_03',             33,   688), 
+    ('run_walk_RH_02.bvh',      37,   812),
+    ('run_walk_stop_RH_01.bvh', 37,  2415),
+    ('run_yuan_01.bvh',         26,   744),
+    ('strafe_run_RH_01.bvh',    29,   781),
+    ('strafe_walk_RH_01.bvh',   29,  3214),
+    ('suiyi_RH_01.bvh',         40,  2418),
+    ('walk45_RH_04.bvh',        41,   839),
+    ('walk_bazi_RH_02.bvh',     44,  1404),
+    ('walk_RH_02.bvh',          60,  3990),
+    ('walk_yuan_RH_01.bvh',     28,  2321),
 ]
 
 """ We will accumulate data in these lists """
@@ -101,8 +117,8 @@ for filename, start, stop in files:
         global_rotations, global_positions = quat.fk(rotations, positions, bvh_data['parents'])
         
         # Specify joints to use for simulation bone 
-        sim_position_joint = bvh_data['names'].index("Spine2")
-        sim_rotation_joint = bvh_data['names'].index("Hips")
+        sim_position_joint = bvh_data['names'].index("Bip002_Spine2")
+        sim_rotation_joint = bvh_data['names'].index("Bip002")
         
         # Position comes from spine joint
         sim_position = np.array([1.0, 0.0, 1.0]) * global_positions[:,sim_position_joint:sim_position_joint+1]

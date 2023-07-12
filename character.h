@@ -1,4 +1,4 @@
-#pragma once
+#pragma once 
 
 #include "vec.h"
 #include "quat.h"
@@ -9,31 +9,75 @@
 
 //--------------------------------------
 
-enum Bones
+enum Bones 
 {
-    Bone_Entity        = 0,
-    Bone_Hips          = 1,
-    Bone_LeftUpLeg     = 2,
-    Bone_LeftLeg       = 3,
-    Bone_LeftFoot      = 4,
-    Bone_LeftToe       = 5,
-    Bone_RightUpLeg    = 6,
-    Bone_RightLeg      = 7,
-    Bone_RightFoot     = 8,
-    Bone_RightToe      = 9,
-    Bone_Spine         = 10,
-    Bone_Spine1        = 11,
-    Bone_Spine2        = 12,
-    Bone_Neck          = 13,
-    Bone_Head          = 14,
-    Bone_LeftShoulder  = 15,
-    Bone_LeftArm       = 16,
-    Bone_LeftForeArm   = 17,
-    Bone_LeftHand      = 18,
-    Bone_RightShoulder = 19,
-    Bone_RightArm      = 20,
-    Bone_RightForeArm  = 21,
-    Bone_RightHand     = 22,
+    Bone_Entity                     = 0, // no idea what this is
+    Bone_Root                       = 1,
+    Bone_Bip002                     = 2,
+    Bone_Bip002_Pelvis              = 3,
+    Bone_Bip002_Spine               = 4,
+    Bone_Bip002_Spine1              = 5,
+    Bone_Bip002_Spine2              = 6,
+    Bone_Bip002_Neck                = 7,
+    Bone_Bip002_Head                = 8,
+    Bone_Bip002_L_Clavicle          = 9,
+    Bone_Bip002_L_UpperArm          = 10,
+    Bone_Bip002_L_Forearm           = 11,
+    Bone_Bip002_L_Hand              = 12,
+    Bone_Bip002_L_Finger0           = 13,
+    Bone_Bip002_L_Finger01          = 14,
+    Bone_Bip002_L_Finger02          = 15,
+    Bone_Bip002_L_Finger1           = 16,
+    Bone_Bip002_L_Finger11          = 17,
+    Bone_Bip002_L_Finger12          = 18,
+    Bone_Bip002_L_Finger2           = 19,
+    Bone_Bip002_L_Finger21          = 20,
+    Bone_Bip002_L_Finger22          = 21,
+    Bone_Bip002_L_Finger3           = 22,
+    Bone_Bip002_L_Finger31          = 23,
+    Bone_Bip002_L_Finger32          = 24,
+    Bone_Bip002_L_Finger4           = 25,
+    Bone_Bip002_L_Finger41          = 26,
+    Bone_Bip002_L_Finger42          = 27,
+    Bone_Bip002_L_ForeArm_Twist     = 28,
+    Bone_Bip002_L_UpperArm_Twist    = 29,
+    Bone_Bip002_R_Clavicle          = 30,
+    Bone_Bip002_R_UpperArm          = 31,
+    Bone_Bip002_R_Forearm           = 32,
+    Bone_Bip002_R_Hand              = 33,
+    Bone_Bip002_R_Finger0           = 34,
+    Bone_Bip002_R_Finger01          = 35,
+    Bone_Bip002_R_Finger02          = 36,
+    Bone_Bip002_R_Finger1           = 37,
+    Bone_Bip002_R_Finger11          = 38,
+    Bone_Bip002_R_Finger12          = 39,
+    Bone_Bip002_R_Finger2           = 40,
+    Bone_Bip002_R_Finger21          = 41,
+    Bone_Bip002_R_Finger22          = 42,
+    Bone_Bip002_R_Finger3           = 43,
+    Bone_Bip002_R_Finger31          = 44,
+    Bone_Bip002_R_Finger32          = 45,
+    Bone_Bip002_R_Finger4           = 46,
+    Bone_Bip002_R_Finger41          = 47,
+    Bone_Bip002_R_Finger42          = 48,
+    Bone_Bip002_R_ForeArm_Twist     = 49,
+    Bone_Bip002_R_UpperArm_Twist    = 50,
+    Bone_Bone004                    = 51,
+    Bone_Bone007                    = 52,
+    Bone_Bone014                    = 53,
+    Bone_Bip002_L_Thigh             = 54,
+    Bone_Bip002_L_Calf              = 55,
+    Bone_Bip002_L_Foot              = 56,
+    Bone_Bip002_L_Toe0              = 57,
+    Bone_Bone009                    = 58,
+    Bone_Bone010                    = 59,
+    Bone_Bip002_R_Thigh            = 60,
+    Bone_Bip002_R_Calf              = 61,
+    Bone_Bip002_R_Foot              = 62,
+    Bone_Bip002_R_Toe0              = 63,
+    Bone_Bone008                    = 64,
+    Bone_Bone006                    = 65,
+    Bone_Bone013                    = 66,
 };
 
 //--------------------------------------
@@ -56,25 +100,17 @@ void character_load(character& c, const char* filename)
 {
     FILE* f = fopen(filename, "rb");
     assert(f != NULL);
-    std::cout << "positions:\n";
-    array1d_read(c.positions, f);  
-    std::cout << "normals:\n";
+    
+    array1d_read(c.positions, f);
     array1d_read(c.normals, f);
-    std::cout << "texcoords:\n";
     array1d_read(c.texcoords, f);
-    std::cout << "traingles:\n";
     array1d_read(c.triangles, f);
     
-    std::cout << "bone_weights:\n";
     array2d_read(c.bone_weights, f);
-    std::cout << "bone_indicies:\n";
     array2d_read(c.bone_indices, f);
     
-    std::cout << "bone_rest_positions:\n";
     array1d_read(c.bone_rest_positions, f);
-    std::cout << "bone_rest_rotations:\n";
     array1d_read(c.bone_rest_rotations, f);
-    
     fclose(f);
 }
 
